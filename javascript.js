@@ -27,25 +27,41 @@ function playRound(playerSelection, computerSelection) {
     }
 
 
-function game(){
-    const playerSelection = prompt("Please enter: rock,paper or scissors");
+function game(playerSelection){
+
     const computerSelection = getComputerChoice();
-    console.log(playRound(playerSelection, computerSelection));
+    return playRound(playerSelection, computerSelection);
 
 }
 
-
-for(i = 0;i<5;i++){
-    game();
+function gameResult(playerScore,computerScore){
+    if (playerScore > computerScore){
+        return ("You won: Player Score: " + playerScore + " Compueter Score: " + computerScore)
+    }
+    else if (computerScore > playerScore){
+        return ("You lost: Player Score: " + playerScore + " Compueter Score: " + computerScore)
+        
+    }
+    else {
+        return("Its a Tie: Player Score: " + playerScore + " Compueter Score: " + computerScore)        
+    }
 }
 
-if (playerScore > computerScore){
-    console.log("You won: Player Score: " + playerScore + " Compueter Score: " + computerScore)
-}
-else if (computerScore > playerScore){
-    console.log("You lost: Player Score: " + playerScore + " Compueter Score: " + computerScore)
-    
-}
-else {
-    console.log("Its a Tie: Player Score: " + playerScore + " Compueter Score: " + computerScore)        
-}
+
+const buttons = document.querySelectorAll('button');
+const result = document.querySelector('#result');
+const score = document.querySelector('#score');
+
+
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+
+        result.textContent = game(button.value);
+        score.textContent = "Player: " + playerScore + " Computer: " + computerScore;
+        if (playerScore > 5 || computerScore > 5){
+            score.textContent = gameResult(playerScore,computerScore);
+        }
+
+
+    })
+})
